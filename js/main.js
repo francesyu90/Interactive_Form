@@ -1,6 +1,6 @@
 function validateCCNum(ccNum) {
     var isNum = /^\d+$/.test(ccNum);
-    if(!isNum || isNum.length < 16 || isNum.length > 16) {
+    if(!isNum || isNum.length < 16) {
         return false;
     }
     var numArr = ccNum.split("");
@@ -179,7 +179,12 @@ $(document).ready(function() {
     /*
      *   Form validation
      */
-     $("button[type=submit]").click(function(event) {
+     // $("button[type=submit]").click(function(event) {
+     $("button[type=submit]").on("click", function(event) {
+
+        /*
+         *   Check if name field is empty
+         */
         var name = $("#name").val();
         if(!name) {
             $("#nameErr").show();
@@ -189,6 +194,9 @@ $(document).ready(function() {
             $("#nameErr").hide();
             next++;
         }
+        /*
+         *   Check if the email address is valid
+         */
         var email = $("#mail").val();
         if(email == '' || !regex.test(email)) {
             $("#emailErr").show();
@@ -198,22 +206,30 @@ $(document).ready(function() {
             $("#emailErr").hide();
             next++;
         }
+        /*
+         *   Check if at least one activity is selected
+         */
         if(total < 100) {
             $("#activityErr").show();
         } else {
             $("#activityErr").hide();
             next++;
         }
+        /*
+         *   Check if payment option is selected
+         */
         var payment = $("#payment").val();
         if(payment === "select_method") {
             $("#paymentErr").show();
+            $("#payment").css("border-color", "red");
         } else {
             $("#paymentErr").hide();
+            $("#payment").css("border-color", "#c1deeb");
             next++;
         }
-
-        event.preventDefault();
-
+        /*
+         *   Check if information about credit card is valid
+         */
         if(payment === "credit card") {
             var ccNum = $("#cc-num").val();
             var isCC = validateCCNum(ccNum);
@@ -222,6 +238,7 @@ $(document).ready(function() {
             var cvv = $("#cvv").val();
             var isCVV = validateCVV(cvv);
             if(isCC && isPC && isCVV) {
+                $("#ccErr").hide();
                 next++;
             } else {
                 var errMsgs = [];
@@ -269,28 +286,3 @@ $(document).ready(function() {
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
