@@ -1,3 +1,5 @@
+"use strict";
+
 function validateCCNum(ccNum) {
     var isNum = /^\d+$/.test(ccNum);
     if(!isNum || isNum.length < 16) {
@@ -23,6 +25,7 @@ function validateCCNum(ccNum) {
 }
 
 function validatePostalCode(postalCode, countryCode) {
+    var postalCodeRegex;
     switch (countryCode) {
         case "US":
             postalCodeRegex = /^([0-9]{5})(?:[-\s]*([0-9]{4}))?$/;
@@ -181,6 +184,8 @@ $(document).ready(function() {
      */
      // $("button[type=submit]").click(function(event) {
      $("button[type=submit]").on("click", function(event) {
+
+        event.preventDefault();
 
         /*
          *   Check if name field is empty
