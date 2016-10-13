@@ -2,7 +2,7 @@
 
 function validateCCNum(ccNum) {
     var isNum = /^\d+$/.test(ccNum);
-    if(!isNum || isNum.length < 16) {
+    if(!isNum || isNum.length < 13) {
         return false;
     }
     var numArr = ccNum.split("");
@@ -255,7 +255,7 @@ $(document).ready(function() {
                     $("#cc-num").css("border-color", "#c1deeb");
                 }
                 if(!isPC) {
-                    var str = "Valid postal code is required";
+                    var str = "Valid Canadian postal code is required";
                     $("#zip").css("border-color", "red");
                     errMsgs.push(str);
                 } else {
